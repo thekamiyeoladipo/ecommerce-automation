@@ -18,3 +18,12 @@ def page():
         yield page
         context.close()
         browser.close()
+        
+
+@pytest.fixture(scope="session")
+def test_email():
+    return os.getenv("TEST_EMAIL")
+
+@pytest.fixture(scope="session")
+def test_password():
+    return os.getenv("TEST_PASSWORD")
