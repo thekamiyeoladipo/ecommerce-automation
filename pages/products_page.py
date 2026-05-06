@@ -8,10 +8,8 @@ class ProductsPage:
         self.search_input = page.locator("input[id='search_product']")
         self.search_button = page.locator("button[id='submit_search']")
         self.searched_products = page.locator(".productinfo")
-        self.first_product = page.locator(".product-image-wrapper").first
-        self.first_add_to_cart = page.locator(".product-overlay .add-to-cart").first
-        self.continue_shopping_button = page.locator("button:has-text('Continue Shopping')")
-        self.view_cart_link = page.locator("a.view-cart")
+        self.add_to_cart_button =  page.get_by_role("button", name=" Add to cart")
+        self.view_cart_modal_link = page.get_by_role("link", name="View Cart")
 
     def navigate(self):
         self.products_link.click()
@@ -25,17 +23,15 @@ class ProductsPage:
     def get_searched_products_count(self):
         return self.searched_products.count()
 
-    def add_first_product_to_cart(self):
-        # Hover to reveal the hidden overlay button first
-        self.first_product.hover()
-        self.page.wait_for_timeout(800)
-        self.first_add_to_cart.click()
+    def open_first_product(self):
+        # Navigate directly to first product detail page — no hover needed
+        self.page.goto("https://automationexercise.com/product_details/1")
         self.page.wait_for_load_state("networkidle")
 
-    def continue_shopping(self):
-        self.continue_shopping_button.click()
-        self.page.wait_for_timeout(500)
-
+    def add_to_cart(self):
+        self.add_to_cart_button.click()
+        self.page.wait_for_timeout(3000)
+    
     def go_to_cart(self):
-        self.view_cart_link.click()
+        self.view_cart_modal_link.click()
         self.page.wait_for_load_state("networkidle")

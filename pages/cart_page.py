@@ -13,6 +13,10 @@ class CartPage:
         self.page.wait_for_load_state("networkidle")
 
     def get_cart_items_count(self):
+        try:
+            self.cart_items.first.wait_for(state="visible", timeout=8000)
+        except:
+            pass
         return self.cart_items.count()
 
     def is_cart_empty(self):

@@ -1,4 +1,3 @@
-from conftest import page
 from pages.home_page import HomePage
 from pages.login_page import LoginPage
 from pages.products_page import ProductsPage
@@ -41,9 +40,8 @@ class TestProductsAndCart:
         home.navigate()
 
         products = ProductsPage(page)
-        products.navigate()
-        products.add_first_product_to_cart()
-        products.continue_shopping()
+        products.open_first_product()
+        products.add_to_cart()
         products.go_to_cart()
 
         cart = CartPage(page)
@@ -54,9 +52,8 @@ class TestProductsAndCart:
         home.navigate()
 
         products = ProductsPage(page)
-        products.navigate()
-        products.add_first_product_to_cart()
-        products.continue_shopping()
+        products.open_first_product()
+        products.add_to_cart()
         products.go_to_cart()
 
         cart = CartPage(page)
@@ -74,11 +71,10 @@ class TestProductsAndCart:
         login.login(test_email, test_password)
         assert login.is_logged_in(), "User should be logged in"
 
-        # Add item to cart while logged in
+        # Add item while logged in
         products = ProductsPage(page)
-        products.navigate()
-        products.add_first_product_to_cart()
-        products.continue_shopping()
+        products.open_first_product()
+        products.add_to_cart()
         products.go_to_cart()
 
         cart = CartPage(page)
