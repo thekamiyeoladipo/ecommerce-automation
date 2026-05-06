@@ -44,10 +44,6 @@ class TestProductsAndCart:
         products.add_to_cart()
         products.go_to_cart()
 
-        # Debug lines - temporary
-        print(f"\n Current URL: {page.url}")
-        print(f"\n Cart item locator count: {page.locator('tr.cart_item').count()}")
-        print(f"\n Page title: {page.title()}")
 
         cart = CartPage(page)
         assert cart.get_cart_items_count() > 0, "Cart should have at least one item after adding"
