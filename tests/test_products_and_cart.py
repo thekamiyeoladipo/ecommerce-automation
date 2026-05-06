@@ -44,6 +44,11 @@ class TestProductsAndCart:
         products.add_to_cart()
         products.go_to_cart()
 
+        # Debug lines - temporary
+        print(f"\n Current URL: {page.url}")
+        print(f"\n Cart item locator count: {page.locator('tr.cart_item').count()}")
+        print(f"\n Page title: {page.title()}")
+
         cart = CartPage(page)
         assert cart.get_cart_items_count() > 0, "Cart should have at least one item after adding"
 
@@ -62,7 +67,6 @@ class TestProductsAndCart:
         assert cart.is_cart_empty(), "Cart should be empty after removing the only item"
 
     def test_cart_persists_after_login(self, page, base_url, test_email, test_password):
-        # Login first
         home = HomePage(page)
         home.navigate()
         home.go_to_login()
@@ -71,7 +75,6 @@ class TestProductsAndCart:
         login.login(test_email, test_password)
         assert login.is_logged_in(), "User should be logged in"
 
-        # Add item while logged in
         products = ProductsPage(page)
         products.open_first_product()
         products.add_to_cart()

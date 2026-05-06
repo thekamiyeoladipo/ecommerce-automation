@@ -3,7 +3,8 @@ class CartPage:
         self.page = page
 
         # Locators
-        self.cart_items = page.locator("tr.cart_item")
+        self.cart_table = page.locator("#cart_info")
+        self.cart_items = page.locator("#cart_info tbody tr")
         self.cart_link = page.locator("a[href='/view_cart']").first
         self.remove_button = page.locator("a.cart_quantity_delete").first
         self.empty_cart_message = page.locator("b:has-text('Cart is empty!')")
@@ -14,7 +15,7 @@ class CartPage:
 
     def get_cart_items_count(self):
         try:
-            self.cart_items.first.wait_for(state="visible", timeout=8000)
+            self.cart_table.wait_for(state="visible", timeout=8000)
         except:
             pass
         return self.cart_items.count()
