@@ -2,7 +2,7 @@ from pages.home_page import HomePage
 
 class TestHomePage:
 
-    def test_home_page_loads(self, page, baurl):
+    def test_home_page_loads(self, page, base_url):
         home = HomePage(page)
         home.navigate()
         assert home.is_logo_visible(), "Home page logo should be visible"
