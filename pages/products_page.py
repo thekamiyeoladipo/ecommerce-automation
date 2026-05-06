@@ -11,7 +11,7 @@ class ProductsPage:
         self.first_product = page.locator(".product-image-wrapper").first
         self.first_add_to_cart = page.locator(".product-overlay .add-to-cart").first
         self.continue_shopping_button = page.locator("button:has-text('Continue Shopping')")
-        self.view_cart_link = page.locator(".modal-footer a[href='/view_cart']")
+        self.view_cart_link = page.locator("a.view-cart")
 
     def navigate(self):
         self.products_link.click()

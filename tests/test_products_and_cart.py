@@ -1,3 +1,4 @@
+from conftest import page
 from pages.home_page import HomePage
 from pages.login_page import LoginPage
 from pages.products_page import ProductsPage
@@ -64,22 +65,21 @@ class TestProductsAndCart:
         assert cart.is_cart_empty(), "Cart should be empty after removing the only item"
 
     def test_cart_persists_after_login(self, page, base_url, test_email, test_password):
-        # Add item to cart as guest
+        # Login first
         home = HomePage(page)
         home.navigate()
-
-        products = ProductsPage(page)
-        products.navigate()
-        products.add_first_product_to_cart()
-        products.continue_shopping()
-
-        # Login
         home.go_to_login()
+
         login = LoginPage(page)
         login.login(test_email, test_password)
         assert login.is_logged_in(), "User should be logged in"
 
-        # Check cart still has item
+        # Add item to cart while logged in
+        products = ProductsPage(page)
+        products.navigate()
+        products.add_first_product_to_cart()
+        products.continue_shopping()
+        products.go_to_cart()
+
         cart = CartPage(page)
-        cart.navigate()
-        assert cart.get_cart_items_count() > 0, "Cart should persist items after login"
+        assert cart.get_cart_items_count() > 0, "Cart should have items after adding while logged in"
